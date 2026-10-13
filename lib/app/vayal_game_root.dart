@@ -98,7 +98,7 @@ class _VayalGameRootState extends State<VayalGameRoot> {
     final ready = saves != null; // loading skeleton until first scan completes
 
     return MainMenuScreen(
-      hasSaveData: ready && saves!.isNotEmpty,
+      hasSaveData: ready && saves.isNotEmpty,
       onContinue: _onContinue,
       onNewGame: () => _enterGame(),
       onLoadGame: _onLoadGame,
