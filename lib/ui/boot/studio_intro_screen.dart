@@ -46,37 +46,30 @@ class _StudioIntroScreenState extends State<StudioIntroScreen>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // Restrained geometric emblem: two forest-green chevrons
-              // forming an abstract "S" horizon over an ivory field line.
               FadeTransition(
                 opacity: _controller,
-                child: CustomPaint(
-                  size: const Size(96, 96),
-                  painter: _SuppidEmblemPainter(),
+                child: Image.asset(
+                  'assets/branding/suppid_games/suppid_games_logo.png',
+                  width: 240,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) => CustomPaint(
+                    size: const Size(96, 96),
+                    painter: _SuppidEmblemPainter(),
+                  ),
                 ),
               ),
-              const SizedBox(height: 28),
+              const SizedBox(height: 20),
               FadeTransition(
                 opacity: _controller,
-                child: Column(
+                child: const Column(
                   children: [
-                    const Text(
-                      'S U P P I D   G A M E S',
-                      style: TextStyle(
-                        color: Color(0xFFE8E2D5), // Warm ivory
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 5.0,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    const Text(
+                    Text(
                       'STORIES FROM VEYRAPURAM',
                       style: TextStyle(
                         color: Color(0xFF5E6B5C),
-                        fontSize: 9,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 3.0,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 4.0,
                       ),
                     ),
                   ],

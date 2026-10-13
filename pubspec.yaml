@@ -58,9 +58,14 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # App branding assets (logo + icon).
+  # App branding assets (logo, icon, splash, characters, studio).
   assets:
     - assets/branding/
+    - assets/branding/vayal/logo/
+    - assets/branding/vayal/app_icon/
+    - assets/branding/vayal/splash/
+    - assets/branding/vayal/characters/
+    - assets/branding/suppid_games/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

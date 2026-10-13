@@ -37,26 +37,36 @@ class CreditsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text(
-                  'V A Y A L',
-                  style: TextStyle(
-                    color: Color(0xFFE8E2D5),
-                    fontSize: 34,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 12.0,
+                Image.asset(
+                  'assets/branding/vayal/logo/vayal_logo_transparent.png',
+                  height: 90,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) => const Text(
+                    'V A Y A L',
+                    style: TextStyle(
+                      color: Color(0xFFE8E2D5),
+                      fontSize: 34,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 12.0,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 6),
+                const SizedBox(height: 12),
                 const Text(
-                  'A Veyrapuram Story',
+                  'Provided by Suppid Games',
                   style: TextStyle(
                     color: Color(0xFF8B95A2),
                     fontSize: 12,
-                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: 2.0,
                   ),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 36),
+                _section('STUDIO & BRAND'),
+                const SizedBox(height: 8),
+                _plain('Developer Brand', 'Suppid Games'),
+                _plain('Product Identity', 'VAYAL — A Veyrapuram Story'),
+                const SizedBox(height: 28),
                 _section('GAME'),
                 const SizedBox(height: 8),
                 _plain('Story, World & Design', 'Suppid Games'),
