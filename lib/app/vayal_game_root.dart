@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import '../game/save/save_manager.dart';
 import '../game/save/save_data.dart';
-import '../game/vayal_game.dart';
-import '../game/isometric/vayal_isometric_game_view.dart';
+import '../game/sidescroller/vayal_sidescroller_game_view.dart';
 import '../ui/boot/studio_intro_screen.dart';
 import '../ui/menu/main_menu_screen.dart';
 import '../ui/menu/credits_screen.dart';
@@ -81,7 +80,7 @@ class _VayalGameRootState extends State<VayalGameRoot> {
         return _buildMainMenu();
 
       case _BootStage.game:
-        return VayalIsometricGameView(
+        return VayalSideScrollerGameView(
           key: ValueKey('game_session_$_gameSession'),
           autoLoadSlotId: _pendingAutoLoadSlot,
           onExitToMainMenu: () {
