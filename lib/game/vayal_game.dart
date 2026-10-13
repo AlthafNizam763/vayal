@@ -838,6 +838,14 @@ class _VayalGameViewState extends State<VayalGameView> {
 
     // 12. Core Game Loop Tick
     threeJs.addAnimationEvent((double dt) {
+      // Keep camera aspect ratio in sync with window/viewport resizing
+      if (threeJs.height > 0) {
+        final currentAspect = threeJs.width / threeJs.height;
+        if ((playerCamera.camera.aspect - currentAspect).abs() > 0.001) {
+          playerCamera.updateAspectRatio(currentAspect);
+        }
+      }
+
       // Phase 22: Record frame metrics
       performanceManager.recordFrame(dt);
 
@@ -1895,8 +1903,13 @@ class _VayalGameViewState extends State<VayalGameView> {
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        reverse: true,
+                        child: Row(
+                          children: [
                         // Health Pill
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -2427,10 +2440,12 @@ class _VayalGameViewState extends State<VayalGameView> {
                         ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
+          ),
+        ),
 
             // 4. Police Wanted Stars Overlay (Top Center)
             SafeArea(
