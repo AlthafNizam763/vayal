@@ -26,10 +26,10 @@ class MissionHud extends StatelessWidget {
         if (active != null && objective != null && !showIntroCard)
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.only(left: 20, top: 76),
+              padding: const EdgeInsets.only(left: 20, top: 46),
               child: Container(
-                constraints: const BoxConstraints(maxWidth: 380),
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                constraints: const BoxConstraints(maxWidth: 320),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
                   color: const Color(0xFF0F131A).withAlpha(225),
                   borderRadius: BorderRadius.circular(4),

@@ -236,111 +236,191 @@ class _VayalSideScrollerGameViewState extends State<VayalSideScrollerGameView>
               ),
             ),
 
-            // 2. Mobile Landscape Touch Controls (Left / Right / Interact)
+            // 2. Mobile Landscape Touch Controls (Left / Right Movement)
             if (!dialogueManager.isDialogueActive)
               Positioned(
-                left: 24,
-                bottom: 24,
-                child: Row(
-                  children: [
-                    // Move Left
-                    GestureDetector(
-                      onTapDown: (_) => setState(() => _touchDirection = -1.0),
-                      onTapUp: (_) => setState(() => _touchDirection = 0.0),
-                      onTapCancel: () => setState(() => _touchDirection = 0.0),
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF0F172A).withAlpha(210),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: const Color(0xFF38BDF8), width: 1.5),
+                left: 0,
+                bottom: 0,
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20, bottom: 16),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Move Left Button
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTapDown: (_) => setState(() => _touchDirection = -1.0),
+                          onTapUp: (_) => setState(() => _touchDirection = 0.0),
+                          onTapCancel: () => setState(() => _touchDirection = 0.0),
+                          child: Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: _touchDirection < -0.1
+                                  ? const Color(0xFF0284C7)
+                                  : const Color(0xFF0F172A).withAlpha(220),
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: _touchDirection < -0.1
+                                    ? Colors.white
+                                    : const Color(0xFF38BDF8),
+                                width: 2.0,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withAlpha(100),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: const Center(
+                              child: Icon(Icons.arrow_back, color: Colors.white, size: 30),
+                            ),
+                          ),
                         ),
-                        child: const Icon(Icons.arrow_back, color: Colors.white, size: 28),
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    // Move Right
-                    GestureDetector(
-                      onTapDown: (_) => setState(() => _touchDirection = 1.0),
-                      onTapUp: (_) => setState(() => _touchDirection = 0.0),
-                      onTapCancel: () => setState(() => _touchDirection = 0.0),
-                      child: Container(
-                        width: 58,
-                        height: 58,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF0F172A).withAlpha(210),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: const Color(0xFF38BDF8), width: 1.5),
+                        const SizedBox(width: 14),
+                        // Move Right Button
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTapDown: (_) => setState(() => _touchDirection = 1.0),
+                          onTapUp: (_) => setState(() => _touchDirection = 0.0),
+                          onTapCancel: () => setState(() => _touchDirection = 0.0),
+                          child: Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: _touchDirection > 0.1
+                                  ? const Color(0xFF0284C7)
+                                  : const Color(0xFF0F172A).withAlpha(220),
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: _touchDirection > 0.1
+                                    ? Colors.white
+                                    : const Color(0xFF38BDF8),
+                                width: 2.0,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withAlpha(100),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: const Center(
+                              child: Icon(Icons.arrow_forward, color: Colors.white, size: 30),
+                            ),
+                          ),
                         ),
-                        child: const Icon(Icons.arrow_forward, color: Colors.white, size: 28),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
 
-            // Sprint & Action Buttons on Bottom-Right
+            // 3. Sprint & Action Buttons on Bottom-Right
             if (!dialogueManager.isDialogueActive)
               Positioned(
-                right: 24,
-                bottom: 24,
-                child: Row(
-                  children: [
-                    // Sprint Toggle
-                    GestureDetector(
-                      onTap: () => setState(() => _isTouchSprinting = !_isTouchSprinting),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                        decoration: BoxDecoration(
-                          color: _isTouchSprinting
-                              ? const Color(0xFFD97706)
-                              : const Color(0xFF0F172A).withAlpha(210),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: _isTouchSprinting
-                                ? const Color(0xFFFBBF24)
-                                : const Color(0xFF38BDF8),
-                            width: 1.5,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.directions_run, color: Colors.white, size: 20),
-                            const SizedBox(width: 4),
-                            Text(
-                              _isTouchSprinting ? 'RUN' : 'WALK',
-                              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    if (_activeInteraction != null) ...[
-                      const SizedBox(width: 12),
-                      GestureDetector(
-                        onTap: _activeInteraction,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF15803D),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: const Color(0xFF4ADE80), width: 1.5),
-                          ),
-                          child: Row(
-                            children: const [
-                              Icon(Icons.touch_app, color: Colors.white, size: 20),
-                              SizedBox(width: 6),
-                              Text(
-                                'INTERACT [E]',
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
+                right: 0,
+                bottom: 0,
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20, bottom: 16),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Sprint Toggle Button
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () => setState(() => _isTouchSprinting = !_isTouchSprinting),
+                          child: Container(
+                            height: 56,
+                            padding: const EdgeInsets.symmetric(horizontal: 18),
+                            decoration: BoxDecoration(
+                              color: _isTouchSprinting
+                                  ? const Color(0xFFD97706)
+                                  : const Color(0xFF0F172A).withAlpha(220),
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: _isTouchSprinting
+                                    ? const Color(0xFFFBBF24)
+                                    : const Color(0xFF38BDF8),
+                                width: 2.0,
                               ),
-                            ],
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withAlpha(100),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  _isTouchSprinting ? Icons.directions_run : Icons.directions_walk,
+                                  color: Colors.white,
+                                  size: 24,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  _isTouchSprinting ? 'RUN' : 'WALK',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 13,
+                                    letterSpacing: 1.0,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ],
+                        if (_activeInteraction != null) ...[
+                          const SizedBox(width: 12),
+                          GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: _activeInteraction,
+                            child: Container(
+                              height: 56,
+                              padding: const EdgeInsets.symmetric(horizontal: 18),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF15803D),
+                                borderRadius: BorderRadius.circular(14),
+                                border: Border.all(color: const Color(0xFF4ADE80), width: 2.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0xFF15803D).withAlpha(140),
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  Icon(Icons.touch_app, color: Colors.white, size: 22),
+                                  SizedBox(width: 6),
+                                  Text(
+                                    'INTERACT',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13,
+                                      letterSpacing: 1.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
                 ),
               ),
 

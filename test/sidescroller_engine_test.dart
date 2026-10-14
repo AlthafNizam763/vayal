@@ -6,6 +6,7 @@ import 'package:vayal/game/sidescroller/sidescroller_player.dart';
 import 'package:vayal/game/sidescroller/sidescroller_world_scene.dart';
 import 'package:vayal/game/missions/mission.dart';
 import 'package:vayal/game/missions/mission_manager.dart';
+import 'package:vayal/ui/menu/main_menu_screen.dart';
 import 'package:three_js/three_js.dart' as three;
 
 void main() {
@@ -101,5 +102,37 @@ void main() {
       expect(missionManager.activeMission!.id, equals('mission_02_new_start'));
       expect(missionManager.isCheckpointSaved, isTrue);
     });
+    testWidgets('MainMenuScreen renders all interactive buttons and triggers callbacks', (tester) async {
+      bool newGamePressed = false;
+      bool settingsPressed = false;
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: MainMenuScreen(
+              hasSaveData: true,
+              onContinue: () {},
+              onNewGame: () => newGamePressed = true,
+              onLoadGame: () {},
+              onOpenSettings: () => settingsPressed = true,
+              onOpenCredits: () {},
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      expect(find.text('NEW GAME'), findsOneWidget);
+      expect(find.text('LOAD GAME'), findsOneWidget);
+      expect(find.text('SETTINGS & AUDIO'), findsOneWidget);
+      expect(find.text('CREDITS'), findsOneWidget);
+
+      await tester.tap(find.text('NEW GAME'));
+      expect(newGamePressed, isTrue);
+
+      await tester.tap(find.text('SETTINGS & AUDIO'));
+      expect(settingsPressed, isTrue);
+    });
   });
 }
+
